@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const S = {
@@ -17,6 +17,7 @@ const S = {
 const App = () => {
   const [value, setValue] = useState('');
   const [todos, setTodos] = useState([]);
+  const [isShown, setIsShown] = useState(false);
 
   const handleChange = event => setValue(event.target.value);
   const handleClick = () => {
@@ -26,6 +27,13 @@ const App = () => {
     ]);
     setValue('');
   };
+
+  useEffect(() => {
+    if (todos.length === 3) {
+      setIsShown(true);
+      setTimeout(() => setIsShown(false), 3000);
+    }
+  }, [todos]);
 
   return (
     <S.Wrapper>
@@ -40,7 +48,7 @@ const App = () => {
           </S.TodoItem>
         ))}
       </S.TodoList>
-      {todos.length === 3 && (
+      {isShown && (
         <S.Paragraph>
           오늘 할 일을 3개 등록하셨네요!
         </S.Paragraph>
