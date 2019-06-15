@@ -1,4 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {
+  useCallback, useEffect, useRef, useState,
+} from 'react';
 import styled from 'styled-components';
 
 const S = {
@@ -19,6 +21,8 @@ const App = () => {
   const [todos, setTodos] = useState([]);
   const [isShown, setIsShown] = useState(false);
 
+  const inputRef = useRef(null);
+
   const handleChange = useCallback(event => setValue(event.target.value), []);
   const handleClick = useCallback(() => {
     setTodos(prevTodos => [
@@ -35,11 +39,23 @@ const App = () => {
     }
   }, [todos]);
 
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
   return (
     <S.Wrapper>
       <S.Title>Todo List</S.Title>
       <S.Label htmlFor="todo">할 일: </S.Label>
-      <S.Input type="text" id="todo" value={value} onChange={handleChange} />
+      <S.Input
+        ref={inputRef}
+        type="text"
+        id="todo"
+        value={value}
+        onChange={handleChange}
+      />
       <S.Button type="button" onClick={handleClick}>추가</S.Button>
       <S.TodoList>
         {todos.map(todo => (
