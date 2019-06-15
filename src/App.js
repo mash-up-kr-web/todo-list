@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
-function App() {
+const S = {
+  Wrapper: styled.div`
+  `,
+  Title: styled.h1`
+  `,
+  Label: styled.label``,
+  Input: styled.input``,
+  Button: styled.button``,
+  TodoList: styled.ul``,
+  TodoItem: styled.li``,
+  Paragraph: styled.p``,
+};
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <S.Wrapper>
+      <S.Title>Todo List</S.Title>
+      <S.Label htmlFor="todo">할 일: </S.Label>
+      <S.Input type="text" id="todo" />
+      <S.Button type="button">추가</S.Button>
+      <S.TodoList>
+      </S.TodoList>
+      <S.Paragraph>
+        오늘 할 일을 3개 등록하셨네요!
+      </S.Paragraph>
+    </S.Wrapper>
+  )
+};
 
 export default App;
