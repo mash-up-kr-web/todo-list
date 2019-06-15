@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const S = {
@@ -19,14 +19,14 @@ const App = () => {
   const [todos, setTodos] = useState([]);
   const [isShown, setIsShown] = useState(false);
 
-  const handleChange = event => setValue(event.target.value);
-  const handleClick = () => {
+  const handleChange = useCallback(event => setValue(event.target.value), []);
+  const handleClick = useCallback(() => {
     setTodos(prevTodos => [
       ...prevTodos,
       { id: prevTodos.length, content: value },
     ]);
     setValue('');
-  };
+  }, [value]);
 
   useEffect(() => {
     if (todos.length === 3) {
